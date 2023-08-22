@@ -6,7 +6,8 @@
 //
 
 import Mailgun
+import Vapor
 
 extension MailgunDomain {
-    static var sandbox: MailgunDomain { .init("sandbox4af589105dc5411ebf1d51a6be096cce.mailgun.org", .us)}
+    static var sandbox: MailgunDomain { .init(Environment.get("MAILGUN_DOMAIN") ?? "", .us)}
 }

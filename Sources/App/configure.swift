@@ -65,7 +65,7 @@ public func configure(_ app: Application) async throws {
     // MARK: Model Middleware
     
     // MARK: Mailgun
-    app.mailgun.configuration = .init(apiKey: "df535c108cf15f2493e234a091c0d539-ee16bf1a-0ffad6a7")
+    app.mailgun.configuration = .init(apiKey: Environment.get("MAILGUN_APIKEY") ?? "")
 //    app.mailgun.configuration = .environment
     app.mailgun.defaultDomain = .sandbox
     
