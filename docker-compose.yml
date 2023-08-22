@@ -25,6 +25,9 @@ x-shared_environment: &shared_environment
   DATABASE_NAME: vapor_database
   DATABASE_USERNAME: vapor_username
   DATABASE_PASSWORD: vapor_password
+  SITE_FRONTEND_URL: "http://localhost:8080"
+  SITE_API_URL: "http://localhost:8080"
+  NO_REPLY_EMAIL: "no_reply@swiftzone.dev"
   
 services:
   app:
@@ -35,6 +38,7 @@ services:
       <<: *shared_environment
     depends_on:
       - db
+      - redis
     ports:
       - '8080:8080'
     # user: '0' # uncomment to run as root for testing purposes even though Dockerfile defines 'vapor' user.
@@ -72,3 +76,11 @@ services:
       POSTGRES_DB: vapor_database
     ports:
       - '5432:5432'
+  redis:
+    image: 'bitnami/redis:latest'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6379:6379'
